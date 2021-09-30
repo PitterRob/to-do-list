@@ -1,0 +1,136 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{ titulo }}</h4>
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="close()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body" [formGroup]="formulario">
+  <div class="row d-flex justify-content-center">
+    <div class="col-10">
+      <label>Titulo</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="title"
+        [ngClass]="{
+          'is-invalid':
+            formulario.get('title').invalid && formulario.get('title').touched
+        }"
+      />
+      <div
+        *ngIf="
+          formulario.get('title').invalid && formulario.get('title').touched
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="formulario.get('title').errors?.required">
+          Título é obrigatório !
+        </div>
+      </div>
+    </div>
+    <div class="col-10">
+      <label>Descrição</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="description"
+        [ngClass]="{
+          'is-invalid':
+            formulario.get('description').invalid &&
+            formulario.get('description').touched
+        }"
+      />
+      <div
+        *ngIf="
+          formulario.get('description').invalid &&
+          formulario.get('description').touched
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="formulario.get('description').errors?.required">
+          Descrição é obrigatório !
+        </div>
+      </div>
+    </div>
+    <div class="col-10">
+      <label>Prioridade</label>
+      <select
+        class="custom-select"
+        [ngClass]="{
+          'is-invalid':
+            formulario.get('priority').invalid &&
+            formulario.get('priority').touched
+        }"
+        formControlName="priority"
+      >
+        <option value="Baixa">Baixa</option>
+        <option value="Média">Média</option>
+        <option value="Alta">Alta</option>
+        <option value="Urgente">Urgente</option>
+      </select>
+
+      <div
+        *ngIf="
+          formulario.get('priority').invalid &&
+          formulario.get('priority').touched
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="formulario.get('priority').errors?.required">
+          Prioridade é obrigatório !
+        </div>
+      </div>
+    </div>
+    <div class="col-10">
+      <label>Data tarefa</label>
+      <input
+        type="datetime-local"
+        class="form-control"
+        formControlName="expire"
+        [ngClass]="{
+          'is-invalid':
+            formulario.get('expire').invalid && formulario.get('expire').touched
+        }"
+      />
+      <div
+        *ngIf="
+          formulario.get('expire').invalid && formulario.get('expire').touched
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="formulario.get('expire').errors?.required">
+          Data tarefa é obrigatório !
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ibox-row-padding">
+    <hr class="hr-line" />
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 m-b-xs">
+      <button class="btn btn-dark btn-block" type="button" (click)="close()">
+        Cancelar
+      </button>
+    </div>
+
+    <div class="col-sm-6">
+      <button
+        type="button"
+        class="btn btn-primary btn-block"
+        [disabled]="formulario.invalid"
+        (click)="confirm()"
+      >
+        {{ acao }}
+      </button>
+    </div>
+  </div>
+</div>
